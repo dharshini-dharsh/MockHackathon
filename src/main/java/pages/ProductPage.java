@@ -18,7 +18,7 @@ public class ProductPage {
 
         this.driver = driver;
 
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
     }
 
     By searchBox = By.id("search_product");

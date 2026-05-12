@@ -3,26 +3,28 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import pages.HomePage;
 import pages.CheckoutPage;
+import pages.HomePage;
+import pages.ProductPage;
 
 public class CheckoutTest extends BaseTest {
 
     @Test
     public void completeCheckout() {
 
-        HomePage homePage = new HomePage(driver);
-        CheckoutPage checkoutPage = new CheckoutPage(driver);
+        HomePage home = new HomePage(driver);
 
-        // ADD PRODUCT
-        homePage.addProductToCart();
+        ProductPage product = new ProductPage(driver);
 
-        // OPEN CART
-        homePage.openCart();
+        CheckoutPage checkout = new CheckoutPage(driver);
 
-        // CLICK CHECKOUT
-        checkoutPage.clickPlaceOrder();
+        home.goToProducts();
+
+        product.addFirstProductToCart();
+
+        home.openCart();
+
+        checkout.clickPlaceOrder();
 
         Assert.assertTrue(true);
     }

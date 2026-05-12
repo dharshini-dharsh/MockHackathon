@@ -8,35 +8,22 @@ public class HomePage {
     WebDriver driver;
 
     public HomePage(WebDriver driver) {
-
         this.driver = driver;
     }
 
-    // LOCATORS
-    By productsButton = By.xpath("//a[@href='/products']");
-    By cartButton = By.xpath("//a[@href='/view_cart']");
-    By loginButton = By.xpath("//a[@href='/login']");
-    By addToCartButton = By.xpath("(//a[contains(text(),'Add to cart')])[1]");
-
-    // METHODS
+    By productsBtn = By.xpath("//a[contains(text(),'Products')]");
+    By cartBtn = By.xpath("//a[contains(text(),'Cart')]");
+    By loginBtn = By.xpath("//a[contains(text(),'Signup / Login')]");
 
     public void goToProducts() {
-
-        driver.findElement(productsButton).click();
+        driver.findElement(productsBtn).click();
     }
 
     public void openCart() {
-
-        driver.findElement(cartButton).click();
+        driver.findElement(cartBtn).click();
     }
 
     public void clickLogin() {
-
-        driver.findElement(loginButton).click();
-    }
-
-    public void addProductToCart() {
-
-        driver.findElement(addToCartButton).click();
+        driver.findElement(loginBtn).click();
     }
 }

@@ -13,18 +13,20 @@ public class CheckoutPage {
     WebDriverWait wait;
 
     public CheckoutPage(WebDriver driver) {
+
         this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
-    By placeOrderBtn = By.xpath(
-            "//a[contains(text(),'Proceed To Checkout') or contains(text(),'Place Order')]"
-    );
+    By checkoutBtn =
+            By.xpath("//a[contains(text(),'Proceed To Checkout')]");
 
     public void clickPlaceOrder() {
 
         wait.until(
-                ExpectedConditions.elementToBeClickable(placeOrderBtn)
-        ).click();
+                ExpectedConditions.elementToBeClickable(checkoutBtn));
+
+        driver.findElement(checkoutBtn).click();
     }
 }

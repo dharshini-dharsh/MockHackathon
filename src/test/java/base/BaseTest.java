@@ -18,7 +18,8 @@ public class BaseTest {
 
         driver.manage().window().maximize();
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts()
+                .implicitlyWait(Duration.ofSeconds(10));
 
         driver.get("https://automationexercise.com");
     }
@@ -27,14 +28,11 @@ public class BaseTest {
     public void tearDown() {
 
         if (driver != null) {
-
             driver.quit();
         }
     }
 
-    // IMPORTANT
     public WebDriver getDriver() {
-
         return driver;
     }
 }

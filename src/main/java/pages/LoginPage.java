@@ -14,54 +14,37 @@ public class LoginPage {
     WebDriverWait wait;
 
     // Locators
+    By signupLoginBtn = By.xpath("//a[contains(text(),'Signup / Login')]");
     By emailField = By.xpath("//input[@data-qa='login-email']");
     By passwordField = By.xpath("//input[@data-qa='login-password']");
-    By loginButton = By.xpath("//button[@data-qa='login-button']");
-    By logoutButton = By.xpath("//a[contains(text(),'Logout')]");
-
-    // Fixed Error Locator
-    By errorMessage = By.xpath("//p[contains(text(),'Your email or password is incorrect')]");
+    By loginBtn = By.xpath("//button[@data-qa='login-button']");
+    By errorMessage = By.xpath("//p[contains(text(),'incorrect')]");
 
     // Constructor
     public LoginPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
-    // Login Method
+    // Login method
     public void login(String email, String password) {
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(emailField)).sendKeys(email);
+        wait.until(ExpectedConditions.elementToBeClickable(signupLoginBtn)).click();
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(passwordField)).sendKeys(password);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(emailField))
+                .sendKeys(email);
 
-        wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
+        driver.findElement(passwordField).sendKeys(password);
+
+        driver.findElement(loginBtn).click();
     }
 
-    // Get Error Message
+    // Error message method
     public String getErrorMessage() {
-        try {
-            WebElement error = wait.until(
-                    ExpectedConditions.visibilityOfElementLocated(
-                            By.cssSelector(".alert-danger")
-                    )
-            );
-            return error.getText();
 
-        } catch (Exception e) {
-            return "No error message found";
-        }
-    }
+        WebElement error = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(errorMessage));
 
-    public boolean isLoginSuccessful() {
-
-        try {
-
-            return driver.findElement(logoutButton).isDisplayed();
-
-        } catch (Exception e) {
-
-            return false;
-        }
+        return error.getText();
     }
 }

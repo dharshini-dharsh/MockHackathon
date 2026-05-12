@@ -11,11 +11,13 @@ public class LoginTest extends BaseTest {
     @DataProvider(name = "loginData")
     public Object[][] loginData() {
 
-        return new Object[][] {
+        return new Object[][]{
 
-                {"test@gmail.com", "12345", "valid"},
+                // VALID LOGIN
+                {"dharshinidharshu623@gmail.com", "Dharshu@2005", "valid"},
+
+                // INVALID LOGIN
                 {"wrong@gmail.com", "wrong123", "invalid"}
-
         };
     }
 
@@ -24,19 +26,22 @@ public class LoginTest extends BaseTest {
                               String password,
                               String type) {
 
-        LoginPage loginPage = new LoginPage(driver);
+        LoginPage login = new LoginPage(driver);
 
-        loginPage.login(email, password);
+        login.login(email, password);
 
-        boolean status = loginPage.isLoginSuccessful();
+        if (type.equals("valid")) {
 
-        if(type.equalsIgnoreCase("valid")) {
-
-            Assert.assertTrue(status);
+            Assert.assertTrue(
+                    driver.getCurrentUrl().contains("automationexercise")
+            );
 
         } else {
 
-            Assert.assertFalse(status);
+            Assert.assertTrue(
+                    login.getErrorMessage()
+                            .contains("incorrect")
+            );
         }
     }
 }

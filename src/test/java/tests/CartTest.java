@@ -3,44 +3,47 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import pages.HomePage;
 import pages.CartPage;
+import pages.HomePage;
+import pages.ProductPage;
 
 public class CartTest extends BaseTest {
 
     @Test
     public void validateCartProduct() {
 
-        HomePage homePage = new HomePage(driver);
-        CartPage cartPage = new CartPage(driver);
+        HomePage home = new HomePage(driver);
 
-        // ADD PRODUCT
-        homePage.addProductToCart();
+        ProductPage product = new ProductPage(driver);
 
-        // OPEN CART
-        homePage.openCart();
+        CartPage cart = new CartPage(driver);
 
-        // VALIDATE PRODUCT
-        String productName = cartPage.getCartProductName();
+        home.goToProducts();
 
-        Assert.assertTrue(productName.length() > 0);
+        product.addFirstProductToCart();
+
+        home.openCart();
+
+        Assert.assertTrue(
+                cart.getCartProductName().length() > 0);
     }
 
     @Test
     public void removeProductFromCart() {
 
-        HomePage homePage = new HomePage(driver);
-        CartPage cartPage = new CartPage(driver);
+        HomePage home = new HomePage(driver);
 
-        // ADD PRODUCT
-        homePage.addProductToCart();
+        ProductPage product = new ProductPage(driver);
 
-        // OPEN CART
-        homePage.openCart();
+        CartPage cart = new CartPage(driver);
 
-        // REMOVE PRODUCT
-        cartPage.removeProduct();
+        home.goToProducts();
+
+        product.addFirstProductToCart();
+
+        home.openCart();
+
+        cart.removeProduct();
 
         Assert.assertTrue(true);
     }

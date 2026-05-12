@@ -13,25 +13,31 @@ public class CartPage {
     WebDriverWait wait;
 
     public CartPage(WebDriver driver) {
+
         this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
-    By productName = By.xpath("//td[@class='cart_description']//a");
+    By cartProduct =
+            By.xpath("//td[@class='cart_description']//a");
 
-    By deleteBtn = By.xpath("//a[contains(@class,'cart_quantity_delete')]");
+    By deleteBtn =
+            By.xpath("//a[@class='cart_quantity_delete']");
 
     public String getCartProductName() {
 
-        return wait.until(
-                ExpectedConditions.visibilityOfElementLocated(productName)
-        ).getText();
+        wait.until(
+                ExpectedConditions.visibilityOfElementLocated(cartProduct));
+
+        return driver.findElement(cartProduct).getText();
     }
 
     public void removeProduct() {
 
         wait.until(
-                ExpectedConditions.elementToBeClickable(deleteBtn)
-        ).click();
+                ExpectedConditions.elementToBeClickable(deleteBtn));
+
+        driver.findElement(deleteBtn).click();
     }
 }

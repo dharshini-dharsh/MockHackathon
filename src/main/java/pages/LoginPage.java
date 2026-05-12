@@ -17,7 +17,7 @@ public class LoginPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    // ================= LOCATORS =================
+    // locators
 
     By loginLink =
             By.xpath("//a[contains(text(),'Signup / Login')]");
@@ -31,14 +31,14 @@ public class LoginPage {
     By loginButton =
             By.xpath("//button[contains(text(),'Login')]");
 
-    // ✅ FIXED LOCATOR (more stable than full sentence match)
+    // fixed locators (more stable than full sentence match)
     By errorMessage =
             By.xpath("//p[contains(text(),'Your email') or contains(text(),'incorrect')]");
 
     By logoutBtn =
             By.xpath("//a[contains(text(),'Logout')]");
 
-    // ================= ACTION METHODS =================
+    // action methods
 
     public void clickLogin() {
         wait.until(ExpectedConditions.elementToBeClickable(loginLink)).click();
@@ -56,7 +56,7 @@ public class LoginPage {
         wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
     }
 
-    // ================= LOGIN FLOW =================
+    // login flow
 
     public void login(String email, String password) {
         clickLogin();
@@ -65,7 +65,7 @@ public class LoginPage {
         clickLoginButton();
     }
 
-    // ================= ERROR VALIDATION =================
+    // Error validation
 
     public String getErrorMessage() {
 
@@ -78,7 +78,7 @@ public class LoginPage {
         }
     }
 
-    // ================= LOGOUT =================
+    // Logout
 
     public void logout() {
         wait.until(ExpectedConditions.elementToBeClickable(logoutBtn)).click();

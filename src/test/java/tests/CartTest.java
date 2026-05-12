@@ -3,6 +3,8 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import pages.HomePage;
 import pages.CartPage;
 
 public class CartTest extends BaseTest {
@@ -10,17 +12,35 @@ public class CartTest extends BaseTest {
     @Test
     public void validateCartProduct() {
 
-        CartPage cart = new CartPage(driver);
+        HomePage homePage = new HomePage(driver);
+        CartPage cartPage = new CartPage(driver);
 
-        Assert.assertTrue(cart.getCartProductName().length() > 0);
+        // ADD PRODUCT
+        homePage.addProductToCart();
+
+        // OPEN CART
+        homePage.openCart();
+
+        // VALIDATE PRODUCT
+        String productName = cartPage.getCartProductName();
+
+        Assert.assertTrue(productName.length() > 0);
     }
 
     @Test
     public void removeProductFromCart() {
 
-        CartPage cart = new CartPage(driver);
+        HomePage homePage = new HomePage(driver);
+        CartPage cartPage = new CartPage(driver);
 
-        cart.removeProduct();
+        // ADD PRODUCT
+        homePage.addProductToCart();
+
+        // OPEN CART
+        homePage.openCart();
+
+        // REMOVE PRODUCT
+        cartPage.removeProduct();
 
         Assert.assertTrue(true);
     }

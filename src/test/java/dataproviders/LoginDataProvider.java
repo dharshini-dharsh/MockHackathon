@@ -9,7 +9,11 @@ public class LoginDataProvider {
 
         return new Object[][]{
                 {"dharshinidharshu623@gmail.com", "Dharshu@2005", "valid"},
-                {"dharshinidharshu623@gmail.com", "dharshu@2005", "invalid"}
+                {
+                        "fake123@gmail.com",
+                        "wrongpassword",
+                        "invalid"
+                }
         };
     }
 }

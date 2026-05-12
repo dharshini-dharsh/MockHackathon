@@ -1,42 +1,37 @@
 package pages;
 
-import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class CartPage extends BasePage {
+public class CartPage {
+
+    WebDriver driver;
+    WebDriverWait wait;
 
     public CartPage(WebDriver driver) {
-        super(driver);
+        this.driver = driver;
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    private By productName = By.cssSelector(".cart_description a");
-    private By productPrice = By.xpath("//td[@class='cart_price']/p");
-    private By removeBtn = By.cssSelector(".cart_quantity_delete");
+    By productName = By.xpath("//td[@class='cart_description']//a");
 
+    By deleteBtn = By.xpath("//a[contains(@class,'cart_quantity_delete')]");
 
     public String getCartProductName() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement productName = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[@class='cart_description']//a"))
-        );
-        return productName.getText();
-    }
 
-    public String getCartProductPrice() {
-        return getText(driver.findElement(productPrice));
+        return wait.until(
+                ExpectedConditions.visibilityOfElementLocated(productName)
+        ).getText();
     }
 
     public void removeProduct() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement removeBtn = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".cart_quantity_delete"))
-        );
-        removeBtn.click();
+
+        wait.until(
+                ExpectedConditions.elementToBeClickable(deleteBtn)
+        ).click();
     }
 }

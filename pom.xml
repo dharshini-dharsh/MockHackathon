@@ -17,11 +17,10 @@
 
     <dependencies>
 
-        <!-- Selenium -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.20.0</version>
+            <version>4.33.0</version>
         </dependency>
 
         <!-- TestNG -->

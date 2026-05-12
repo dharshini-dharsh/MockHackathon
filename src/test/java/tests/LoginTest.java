@@ -2,26 +2,41 @@ package tests;
 
 import base.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import pages.HomePage;
 import pages.LoginPage;
-import dataproviders.LoginDataProvider;
 
 public class LoginTest extends BaseTest {
 
-    @Test(dataProvider = "loginData", dataProviderClass = LoginDataProvider.class)
-    public void validateLogin(String email, String password, String expectedResult) {
+    @DataProvider(name = "loginData")
+    public Object[][] loginData() {
 
-        HomePage home = new HomePage(driver);
-        LoginPage login = new LoginPage(driver);
+        return new Object[][] {
 
-        home.clickLogin();
-        login.login(email, password);
+                {"test@gmail.com", "12345", "valid"},
+                {"wrong@gmail.com", "wrong123", "invalid"}
 
-        if (expectedResult.equals("valid")) {
-            Assert.assertTrue(driver.getCurrentUrl().contains("https://automationexercise.com"));
+        };
+    }
+
+    @Test(dataProvider = "loginData")
+    public void validateLogin(String email,
+                              String password,
+                              String type) {
+
+        LoginPage loginPage = new LoginPage(driver);
+
+        loginPage.login(email, password);
+
+        boolean status = loginPage.isLoginSuccessful();
+
+        if(type.equalsIgnoreCase("valid")) {
+
+            Assert.assertTrue(status);
+
         } else {
-            Assert.assertTrue(login.getErrorMessage().toLowerCase().contains("incorrect"));
+
+            Assert.assertFalse(status);
         }
     }
 }

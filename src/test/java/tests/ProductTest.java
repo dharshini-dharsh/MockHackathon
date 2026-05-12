@@ -15,6 +15,7 @@ public class ProductTest extends BaseTest {
         ProductPage product = new ProductPage(driver);
 
         home.goToProducts();
+
         product.searchProduct("shirt");
 
         Assert.assertTrue(product.getFirstProductName().length() > 0);
@@ -27,6 +28,7 @@ public class ProductTest extends BaseTest {
         ProductPage product = new ProductPage(driver);
 
         home.goToProducts();
+
         product.addFirstProductToCart();
 
         Assert.assertTrue(true);

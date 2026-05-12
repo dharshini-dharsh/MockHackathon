@@ -1,32 +1,42 @@
 package pages;
 
-import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class HomePage extends BasePage {
+public class HomePage {
+
+    WebDriver driver;
 
     public HomePage(WebDriver driver) {
-        super(driver);
+
+        this.driver = driver;
     }
 
-    private By logoutBtn = By.xpath("//a[text()=' Logout']");
-    private By loginBtn = By.xpath("//a[text()=' Signup / Login']");
-    private By productsLink = By.xpath("//a[text()=' Products']");
+    // LOCATORS
+    By productsButton = By.xpath("//a[@href='/products']");
+    By cartButton = By.xpath("//a[@href='/view_cart']");
+    By loginButton = By.xpath("//a[@href='/login']");
+    By addToCartButton = By.xpath("(//a[contains(text(),'Add to cart')])[1]");
 
-    public void clickLogin() {
-        wait.until(ExpectedConditions.refreshed(
-                ExpectedConditions.elementToBeClickable(loginBtn)
-        )).click();
-
-    }
-
-    public void clickLogout() {
-        click(driver.findElement(logoutBtn));
-    }
+    // METHODS
 
     public void goToProducts() {
-        click(driver.findElement(productsLink));
+
+        driver.findElement(productsButton).click();
+    }
+
+    public void openCart() {
+
+        driver.findElement(cartButton).click();
+    }
+
+    public void clickLogin() {
+
+        driver.findElement(loginButton).click();
+    }
+
+    public void addProductToCart() {
+
+        driver.findElement(addToCartButton).click();
     }
 }

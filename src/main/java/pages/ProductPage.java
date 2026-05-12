@@ -1,6 +1,5 @@
 package pages;
 
-import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -10,29 +9,56 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class ProductPage extends BasePage {
+public class ProductPage {
+
+    WebDriver driver;
+
+    By searchBox = By.id("search_product");
+
+    By searchButton = By.id("submit_search");
+
+    By firstProduct =
+            By.xpath("(//div[@class='productinfo text-center']/p)[1]");
+
+    By addToCartButton =
+            By.xpath("(//a[contains(text(),'Add to cart')])[1]");
 
     public ProductPage(WebDriver driver) {
-        super(driver);
+        this.driver = driver;
     }
 
-    private By searchBox = By.id("search_product");
-    private By searchBtn = By.id("submit_search");
-    private By firstProduct = By.xpath("(//div[@class='productinfo text-center'])[1]/p");
-    private By addToCartBtn = By.xpath("(//a[contains(text(),'Add to cart')])[1]");
+    public void searchProduct(String productName) {
 
-    public void searchProduct(String product) {
-        removeAds();  // ADD THIS LINE
-        type(driver.findElement(searchBox), product);
-        click(driver.findElement(searchBtn));
+        WebDriverWait wait =
+                new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(searchBox));
+
+        driver.findElement(searchBox).sendKeys(productName);
+
+        driver.findElement(searchButton).click();
     }
 
     public String getFirstProductName() {
-        return getText(driver.findElement(firstProduct));
+
+        WebDriverWait wait =
+                new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(firstProduct));
+
+        return driver.findElement(firstProduct).getText();
     }
 
     public void addFirstProductToCart() {
-        removeAds();  // ADD THIS LINE
-        click(driver.findElement(addToCartBtn));
+
+        WebDriverWait wait =
+                new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        WebElement element =
+                wait.until(ExpectedConditions.visibilityOfElementLocated(addToCartButton));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        js.executeScript("arguments[0].click();", element);
     }
 }

@@ -13,10 +13,10 @@ public class LoginTest extends BaseTest {
 
         return new Object[][]{
 
-                // VALID LOGIN
+                // Valid login
                 {"dharshinidharshu623@gmail.com", "Dharshu@2005", "valid"},
 
-                // INVALID LOGIN
+                // Invalid login
                 {"wrong@gmail.com", "wrong123", "invalid"}
         };
     }

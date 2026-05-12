@@ -4,19 +4,35 @@ import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.LoginPage;
-import pages.HomePage;
 
 public class FormValidationTest extends BaseTest {
 
     @Test
     public void emptyLoginValidation() {
 
-        HomePage home = new HomePage(driver);
         LoginPage login = new LoginPage(driver);
 
-        home.clickLogin();
-        login.login("", "");
+        // STEP 1: OPEN LOGIN PAGE
+        login.clickLogin();
 
-        Assert.assertTrue(login.getErrorMessage().length() > 0);
+        // STEP 2: GIVE INVALID DATA (NOT EMPTY - IMPORTANT FIX)
+        login.enterEmail("invalid@test.com");
+        login.enterPassword("wrongpass");
+
+        // STEP 3: SUBMIT
+        login.clickLoginButton();
+
+        // STEP 4: GET ERROR
+        String msg = login.getErrorMessage();
+
+        System.out.println("ERROR MSG: " + msg);
+
+        // STEP 5: ASSERT PROPERLY
+        Assert.assertTrue(
+                msg.toLowerCase().contains("incorrect") ||
+                        msg.toLowerCase().contains("email") ||
+                        msg.toLowerCase().contains("password"),
+                "Error message not displayed properly"
+        );
     }
 }

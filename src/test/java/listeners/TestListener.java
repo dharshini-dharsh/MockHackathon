@@ -13,6 +13,8 @@ public class TestListener implements ITestListener {
         Object testClass = result.getInstance();
         BaseTest base = (BaseTest) testClass;
 
+          //to save the screenshot with name
+
         ScreenshotUtil.takeScreenshot(
                 base.getDriver(),
                 result.getName()

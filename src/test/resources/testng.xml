@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-     <!-- run multiple test classes together -->
+<!-- run multiple test classes together -->
 <suite name="AutoQA Pro Suite" parallel="tests" thread-count="2">
 
     <!-- Listener for reporting + screenshots -->
